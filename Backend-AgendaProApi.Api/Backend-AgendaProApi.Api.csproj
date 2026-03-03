@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Backend-AgendaProApi.Application\Backend-AgendaProApi.Application.csproj" />
+    <ProjectReference Include="..\Backend-AgendaProApi.Infrastructure\Backend-AgendaProApi.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
