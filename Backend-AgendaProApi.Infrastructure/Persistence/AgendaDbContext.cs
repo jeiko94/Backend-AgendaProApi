@@ -41,6 +41,15 @@ namespace Backend_AgendaProApi.Infrastructure.Persistence
                       .OnDelete(DeleteBehavior.Restrict);
             });
 
+
+            // -------------------------
+            // Seed Data Roles
+            // -------------------------
+            modelBuilder.Entity<Rol>().HasData(
+                new Rol { IdRol = 1, Nombre = "Admin" },
+                new Rol { IdRol = 2, Nombre = "Usuario" }
+            );
+
             // -------------------------
             // Usuario
             // -------------------------
