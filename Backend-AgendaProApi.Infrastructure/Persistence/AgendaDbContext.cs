@@ -47,7 +47,7 @@ namespace Backend_AgendaProApi.Infrastructure.Persistence
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.ToTable("Usuario");
-
+ 
                 entity.HasKey(e => e.IdUsuario);
 
                 entity.Property(e => e.Nombre)
