@@ -28,5 +28,19 @@ namespace Backend_AgendaProApi.Api.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpGet("especialista/{idEspecialista}")]
+        public async Task<IActionResult> ObtenerHorariosPorEspecialista(int idEspecialista)
+        {
+            try
+            {
+                var result = await _horarioService.ObtenerHorariosPorEspecialistaAsync(idEspecialista);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
     }
 }

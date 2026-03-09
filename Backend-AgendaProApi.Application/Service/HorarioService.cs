@@ -63,5 +63,30 @@ namespace Backend_AgendaProApi.Application.Service
                 Estado = horario.Estado
             };
         }
+
+        public async Task<List<HorarioResponseDto>> ObtenerHorariosPorEspecialistaAsync(int idEspecialista)
+        {
+            var especialistaExiste = await _db.Especialistas
+                .AnyAsync(e => e.IdEspecialista == idEspecialista);
+
+            if (!especialistaExiste)
+                throw new Exception("El especialista no existe");
+
+            return await _db.Horarios
+                .AsNoTracking()
+                .Where(h => h.IdEspecialista == idEspecialista)
+                .OrderBy(h => h.DiaSemana)
+                .ThenBy(h => h.HoraInicio)
+                .Select(h => new HorarioResponseDto
+                {
+                    IdHorarios = h.IdHorarios,
+                    IdEspecialista = h.IdEspecialista,
+                    DiaSemana = h.DiaSemana,
+                    HoraInicio = h.HoraInicio,
+                    HoraFin = h.HoraFin,
+                    Estado = h.Estado
+                })
+                .ToListAsync();
+        }
     }
 }
