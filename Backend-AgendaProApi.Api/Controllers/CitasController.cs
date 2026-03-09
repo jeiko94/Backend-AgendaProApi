@@ -56,5 +56,12 @@ namespace Backend_AgendaProApi.Api.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+
+        [HttpGet("fecha/{fecha}")]
+        public async Task<IActionResult> ObtenerCitasPorFecha(DateOnly fecha)
+        {
+            var result = await _citaService.ObtenerCitasPorFechaAsync(fecha);
+            return Ok(result);
+        }
     }
 }

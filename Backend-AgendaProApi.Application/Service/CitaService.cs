@@ -116,5 +116,24 @@ namespace Backend_AgendaProApi.Application.Service
                 FechaCreacion = cita.FechaCreacion
             };
         }
+
+        public async Task<List<CitaResponseDto>> ObtenerCitasPorFechaAsync(DateOnly fecha)
+        {
+            return await _db.Citas
+                .AsNoTracking()
+                .Where(c => c.Fecha == fecha)
+                .OrderBy(c => c.FechaCreacion)
+                .Select(c => new CitaResponseDto
+                {
+                    IdCitas = c.IdCitas,
+                    IdUsuario = c.IdUsuario,
+                    IdBloqueHorario = c.IdBloqueHorario,
+                    Fecha = c.Fecha,
+                    Motivo = c.Motivo,
+                    Estado = c.Estado,
+                    FechaCreacion = c.FechaCreacion
+                })
+                .ToListAsync();
+        }
     }
 }
