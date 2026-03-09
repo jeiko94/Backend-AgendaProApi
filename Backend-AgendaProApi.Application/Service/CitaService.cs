@@ -69,5 +69,31 @@ namespace Backend_AgendaProApi.Application.Service
                 FechaCreacion = cita.FechaCreacion
             };
         }
+
+        public async Task<List<CitaResponseDto>> ObtenerCitasPorUsuarioAsync(int idUsuario)
+        {
+            var usuarioExiste = await _db.Usuarios
+                .AnyAsync(u => u.IdUsuario == idUsuario);
+
+            if (!usuarioExiste)
+                throw new Exception("El usuario no existe");
+
+            return await _db.Citas
+                .AsNoTracking()
+                .Where(c => c.IdUsuario == idUsuario)
+                .OrderBy(c => c.Fecha)
+                .ThenBy(c => c.FechaCreacion)
+                .Select(c => new CitaResponseDto
+                {
+                    IdCitas = c.IdCitas,
+                    IdUsuario = c.IdUsuario,
+                    IdBloqueHorario = c.IdBloqueHorario,
+                    Fecha = c.Fecha,
+                    Motivo = c.Motivo,
+                    Estado = c.Estado,
+                    FechaCreacion = c.FechaCreacion
+                })
+                .ToListAsync();
+        }
     }
 }
