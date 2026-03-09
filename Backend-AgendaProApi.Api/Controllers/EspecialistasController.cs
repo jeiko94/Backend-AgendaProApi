@@ -63,5 +63,19 @@ namespace Backend_AgendaProApi.Api.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpPatch("{id}/estado")]
+        public async Task<IActionResult> CambiarEstadoEspecialista(int id, [FromQuery] bool estado)
+        {
+            try
+            {
+                var result = await _especialistaService.CambiarEstadoEspecialistaAsync(id, estado);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
     }
 }

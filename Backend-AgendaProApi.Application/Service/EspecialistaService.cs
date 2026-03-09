@@ -127,5 +127,28 @@ namespace Backend_AgendaProApi.Application.Service
                 Estado = especialista.Estado
             };
         }
+
+        public async Task<EspecialistaResponseDto> CambiarEstadoEspecialistaAsync(int idEspecialista, bool estado)
+        {
+            var especialista = await _db.Especialistas
+                .FirstOrDefaultAsync(e => e.IdEspecialista == idEspecialista);
+
+            if (especialista == null)
+                throw new Exception("Especialista no encontrado");
+
+            especialista.Estado = estado;
+
+            await _db.SaveChangesAsync();
+
+            return new EspecialistaResponseDto
+            {
+                IdEspecialista = especialista.IdEspecialista,
+                Nombre = especialista.Nombre,
+                Especialidad = especialista.Especialidad,
+                Email = especialista.Email,
+                Estado = especialista.Estado
+            };
+        }
+
     }
 }
