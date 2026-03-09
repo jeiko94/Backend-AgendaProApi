@@ -11,5 +11,7 @@ namespace Backend_AgendaProApi.Application.Interface
     {
         Task<EspecialistaResponseDto> CrearEspecialistaAsync(EspecialistaCreateDto dto);
         Task<List<EspecialistaResponseDto>> ObtenerEspecialistasAsync();
+        Task<EspecialistaResponseDto> ObtenerEspecialistaPorIdAsync(int idEspecialista);
+        Task<EspecialistaResponseDto> ActualizarEspecialistaAsync(int idEspecialista, EspecialistaUpdateDto dto);
     }
 }

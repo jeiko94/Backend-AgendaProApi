@@ -69,5 +69,63 @@ namespace Backend_AgendaProApi.Application.Service
                 })
                 .ToListAsync();
         }
+
+        public async Task<EspecialistaResponseDto> ObtenerEspecialistaPorIdAsync(int idEspecialista)
+        {
+            var especialista = await _db.Especialistas
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.IdEspecialista == idEspecialista);
+
+            if (especialista == null)
+                throw new Exception("Especialista no encontrado");
+
+            return new EspecialistaResponseDto
+            {
+                IdEspecialista = especialista.IdEspecialista,
+                Nombre = especialista.Nombre,
+                Especialidad = especialista.Especialidad,
+                Email = especialista.Email,
+                Estado = especialista.Estado
+            };
+        }
+
+        public async Task<EspecialistaResponseDto> ActualizarEspecialistaAsync(int idEspecialista, EspecialistaUpdateDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto.Nombre) ||
+                string.IsNullOrWhiteSpace(dto.Especialidad) ||
+                string.IsNullOrWhiteSpace(dto.Email))
+            {
+                throw new Exception("Nombre, Especialidad y Email son obligatorios");
+            }
+
+            var especialista = await _db.Especialistas
+                .FirstOrDefaultAsync(e => e.IdEspecialista == idEspecialista);
+
+            if (especialista == null)
+                throw new Exception("Especialista no encontrado");
+
+            var email = dto.Email.Trim();
+
+            var existeEmail = await _db.Especialistas
+                .AnyAsync(e => e.Email == email && e.IdEspecialista != idEspecialista);
+
+            if (existeEmail)
+                throw new Exception("Ya existe otro especialista registrado con ese email");
+
+            especialista.Nombre = dto.Nombre.Trim();
+            especialista.Especialidad = dto.Especialidad.Trim();
+            especialista.Email = email;
+
+            await _db.SaveChangesAsync();
+
+            return new EspecialistaResponseDto
+            {
+                IdEspecialista = especialista.IdEspecialista,
+                Nombre = especialista.Nombre,
+                Especialidad = especialista.Especialidad,
+                Email = especialista.Email,
+                Estado = especialista.Estado
+            };
+        }
     }
 }
