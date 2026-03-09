@@ -69,5 +69,50 @@ namespace Backend_AgendaProApi.Application.Service
                 })
                 .ToList();
         }
+
+        public async Task<List<BloqueHorarioResponseDto>> ObtenerBloquesPorHorarioAsync(int idHorario)
+        {
+            var horarioExiste = await _db.Horarios
+                .AnyAsync(h => h.IdHorarios == idHorario);
+
+            if (!horarioExiste)
+                throw new Exception("El horario no existe");
+
+            return await _db.BloquesHorario
+                .AsNoTracking()
+                .Where(b => b.IdHorarios == idHorario)
+                .OrderBy(b => b.HoraInicio)
+                .Select(b => new BloqueHorarioResponseDto
+                {
+                    IdBloqueHorario = b.IdBloqueHorario,
+                    IdHorarios = b.IdHorarios,
+                    HoraInicio = b.HoraInicio,
+                    HoraFin = b.HoraFin,
+                    Disponibilidad = b.Disponibilidad
+                })
+                .ToListAsync();
+        }
+
+        public async Task<BloqueHorarioResponseDto> CambiarDisponibilidadAsync(int idBloqueHorario, bool disponibilidad)
+        {
+            var bloque = await _db.BloquesHorario
+                .FirstOrDefaultAsync(b => b.IdBloqueHorario == idBloqueHorario);
+
+            if (bloque == null)
+                throw new Exception("Bloque horario no encontrado");
+
+            bloque.Disponibilidad = disponibilidad;
+
+            await _db.SaveChangesAsync();
+
+            return new BloqueHorarioResponseDto
+            {
+                IdBloqueHorario = bloque.IdBloqueHorario,
+                IdHorarios = bloque.IdHorarios,
+                HoraInicio = bloque.HoraInicio,
+                HoraFin = bloque.HoraFin,
+                Disponibilidad = bloque.Disponibilidad
+            };
+        }
     }
 }

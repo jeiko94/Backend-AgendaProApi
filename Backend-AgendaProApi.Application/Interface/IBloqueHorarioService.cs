@@ -6,5 +6,6 @@ namespace Backend_AgendaProApi.Application.Interface
     {
         Task<List<BloqueHorarioResponseDto>> GenerarBloquesAsync(GenerarBloquesDto dto);
         Task<List<BloqueHorarioResponseDto>> ObtenerBloquesPorHorarioAsync(int idHorario);
+        Task<BloqueHorarioResponseDto> CambiarDisponibilidadAsync(int idBloqueHorario, bool disponibilidad);
     }
 }

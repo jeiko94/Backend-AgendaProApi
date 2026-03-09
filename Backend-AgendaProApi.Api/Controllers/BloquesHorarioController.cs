@@ -29,5 +29,34 @@ namespace Backend_AgendaProApi.Api.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpGet("horario/{idHorario}")]
+        public async Task<IActionResult> ObtenerBloquesPorHorario(int idHorario)
+        {
+            try
+            {
+                var result = await _bloqueHorarioService.ObtenerBloquesPorHorarioAsync(idHorario);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+        [HttpPatch("{id}/disponibilidad")]
+        public async Task<IActionResult> CambiarDisponibilidad(int id, [FromQuery] bool disponibilidad)
+        {
+            try
+            {
+                var result = await _bloqueHorarioService.CambiarDisponibilidadAsync(id, disponibilidad);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
     }
+
 }
