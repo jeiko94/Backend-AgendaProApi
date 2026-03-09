@@ -42,5 +42,19 @@ namespace Backend_AgendaProApi.Api.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ObtenerCitaPorId(int id)
+        {
+            try
+            {
+                var result = await _citaService.ObtenerCitaPorIdAsync(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
     }
 }

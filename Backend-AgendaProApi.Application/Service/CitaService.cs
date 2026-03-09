@@ -95,5 +95,26 @@ namespace Backend_AgendaProApi.Application.Service
                 })
                 .ToListAsync();
         }
+
+        public async Task<CitaResponseDto> ObtenerCitaPorIdAsync(int idCita)
+        {
+            var cita = await _db.Citas
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.IdCitas == idCita);
+
+            if (cita == null)
+                throw new Exception("Cita no encontrada");
+
+            return new CitaResponseDto
+            {
+                IdCitas = cita.IdCitas,
+                IdUsuario = cita.IdUsuario,
+                IdBloqueHorario = cita.IdBloqueHorario,
+                Fecha = cita.Fecha,
+                Motivo = cita.Motivo,
+                Estado = cita.Estado,
+                FechaCreacion = cita.FechaCreacion
+            };
+        }
     }
 }
