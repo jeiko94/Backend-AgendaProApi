@@ -42,5 +42,48 @@ namespace Backend_AgendaProApi.Api.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ObtenerHorarioPorId(int id)
+        {
+            try
+            {
+                var result = await _horarioService.ObtenerHorarioPorIdAsync(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ActualizarHorario(int id, [FromBody] HorarioUpdateDto dto)
+        {
+            try
+            {
+                var result = await _horarioService.ActualizarHorarioAsync(id, dto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPatch("{id}/estado")]
+        public async Task<IActionResult> CambiarEstadoHorario(int id, [FromQuery] bool estado)
+        {
+            try
+            {
+                var result = await _horarioService.CambiarEstadoHorarioAsync(id, estado);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
     }
 }

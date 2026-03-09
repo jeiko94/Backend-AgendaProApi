@@ -7,5 +7,8 @@ namespace Backend_AgendaProApi.Application.Interface
     {
         Task<HorarioResponseDto> CrearHorarioAsync(HorarioCreateDto dto);
         Task<List<HorarioResponseDto>> ObtenerHorariosPorEspecialistaAsync(int idEspecialista);
+        Task<HorarioResponseDto> ObtenerHorarioPorIdAsync(int idHorario);
+        Task<HorarioResponseDto> ActualizarHorarioAsync(int idHorario, HorarioUpdateDto dto);
+        Task<HorarioResponseDto> CambiarEstadoHorarioAsync(int idHorario, bool estado);
     }
 }
