@@ -9,5 +9,6 @@ namespace Backend_AgendaProApi.Application.Interface
         Task<List<CitaResponseDto>> ObtenerCitasPorUsuarioAsync(int idUsuario);
         Task<CitaResponseDto> ObtenerCitaPorIdAsync(int idCita);
         Task<List<CitaResponseDto>> ObtenerCitasPorFechaAsync(DateOnly fecha);
+        Task<CitaResponseDto> CancelarCitaAsync(int idCita);
     }
 }

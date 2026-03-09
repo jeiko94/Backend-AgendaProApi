@@ -63,5 +63,19 @@ namespace Backend_AgendaProApi.Api.Controllers
             var result = await _citaService.ObtenerCitasPorFechaAsync(fecha);
             return Ok(result);
         }
+
+        [HttpPatch("{id}/cancelar")]
+        public async Task<IActionResult> CancelarCita(int id)
+        {
+            try
+            {
+                var result = await _citaService.CancelarCitaAsync(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

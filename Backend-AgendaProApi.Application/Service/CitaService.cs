@@ -135,5 +135,39 @@ namespace Backend_AgendaProApi.Application.Service
                 })
                 .ToListAsync();
         }
+
+        public async Task<CitaResponseDto> CancelarCitaAsync(int idCita)
+        {
+            var cita = await _db.Citas
+                .FirstOrDefaultAsync(c => c.IdCitas == idCita);
+
+            if (cita == null)
+                throw new Exception("Cita no encontrada");
+
+            if (!cita.Estado)
+                throw new Exception("La cita ya está cancelada");
+
+            var bloque = await _db.BloquesHorario
+                .FirstOrDefaultAsync(b => b.IdBloqueHorario == cita.IdBloqueHorario);
+
+            if (bloque == null)
+                throw new Exception("El bloque horario asociado no existe");
+
+            cita.Estado = false;
+            bloque.Disponibilidad = true;
+
+            await _db.SaveChangesAsync();
+
+            return new CitaResponseDto
+            {
+                IdCitas = cita.IdCitas,
+                IdUsuario = cita.IdUsuario,
+                IdBloqueHorario = cita.IdBloqueHorario,
+                Fecha = cita.Fecha,
+                Motivo = cita.Motivo,
+                Estado = cita.Estado,
+                FechaCreacion = cita.FechaCreacion
+            };
+        }
     }
 }
