@@ -15,6 +15,8 @@ builder.Services.AddDbContext<AgendaDbContext>(options =>
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRolService, RolService>();
 builder.Services.AddScoped<IEspecialistaService, EspecialistaService>();
+builder.Services.AddScoped<IHorarioService, HorarioService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
