@@ -1,12 +1,12 @@
-5. Agendamiento de citas
+## Agendamiento de citas
 
 Aquí ya empiezas el flujo principal de negocio.
 
-Entidad:
+### Entidad:
 
 Citas
 
-Qué construir:
+### Qué construir:
 
 crear cita
 
