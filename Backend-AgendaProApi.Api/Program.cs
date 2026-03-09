@@ -17,7 +17,7 @@ builder.Services.AddScoped<IRolService, RolService>();
 builder.Services.AddScoped<IEspecialistaService, EspecialistaService>();
 builder.Services.AddScoped<IHorarioService, HorarioService>();
 builder.Services.AddScoped<IBloqueHorarioService, BloqueHorarioService>();
-
+builder.Services.AddScoped<ICitaService, CitaService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
