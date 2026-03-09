@@ -16,6 +16,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRolService, RolService>();
 builder.Services.AddScoped<IEspecialistaService, EspecialistaService>();
 builder.Services.AddScoped<IHorarioService, HorarioService>();
+builder.Services.AddScoped<IBloqueHorarioService, BloqueHorarioService>();
 
 
 builder.Services.AddControllers();
