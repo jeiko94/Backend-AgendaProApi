@@ -15,7 +15,7 @@ namespace Backend_AgendaProApi.Api.Controllers
             _auth = auth;
         }
 
-        [HttpPost("register")]
+        [HttpPost("registrar")]
         public async Task<IActionResult> Register([FromBody] UsuarioRegisterDto dto)
         {
             try
@@ -29,7 +29,7 @@ namespace Backend_AgendaProApi.Api.Controllers
             }
         }
 
-        [HttpPost("login")]
+        [HttpPost("entrar")]
         public async Task<IActionResult> Login([FromBody] UsuarioLoginDto dto)
         {
             try
