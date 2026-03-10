@@ -1,3 +1,25 @@
+## Agendamiento de citas
+
+Aquí ya empiezas el flujo principal de negocio.
+
+### Entidad:
+
+Citas
+
+### Qué construir:
+
+crear cita
+
+listar citas por usuario
+
+listar citas por fecha
+
+listar citas por especialista
+
+cancelar cita
+
+consultar detalle de cita
+
 ## 📊 Modelo de Base de Datos (DER)
 
 ### 🔹 Rol

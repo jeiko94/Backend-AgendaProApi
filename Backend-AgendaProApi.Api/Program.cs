@@ -1,5 +1,6 @@
 using Backend_AgendaProApi.Application.Interface;
 using Backend_AgendaProApi.Application.Service;
+using Backend_AgendaProApi.Application.Services;
 using Backend_AgendaProApi.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,11 @@ builder.Services.AddDbContext<AgendaDbContext>(options =>
 // Add services to the container.
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IRolService, RolService>();
+builder.Services.AddScoped<IEspecialistaService, EspecialistaService>();
+builder.Services.AddScoped<IHorarioService, HorarioService>();
+builder.Services.AddScoped<IBloqueHorarioService, BloqueHorarioService>();
+builder.Services.AddScoped<ICitaService, CitaService>();
 
 builder.Services.AddControllers();
 
