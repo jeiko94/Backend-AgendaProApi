@@ -3,15 +3,11 @@ using Backend_AgendaProApi.Application.Service;
 using Backend_AgendaProApi.Application.Services;
 using Backend_AgendaProApi.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 📦 Base de datos
 builder.Services.AddDbContext<AgendaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// Add services to the container.
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRolService, RolService>();
@@ -21,8 +17,6 @@ builder.Services.AddScoped<IBloqueHorarioService, BloqueHorarioService>();
 builder.Services.AddScoped<ICitaService, CitaService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -38,6 +32,9 @@ if (app.Environment.IsDevelopment() || enableSwagger)
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 app.MapControllers();
 
 app.Run();
