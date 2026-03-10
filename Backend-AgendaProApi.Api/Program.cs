@@ -22,13 +22,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-var enableSwagger = builder.Configuration.GetValue<bool>("EnableSwagger");
-
-if (app.Environment.IsDevelopment() || enableSwagger)
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
