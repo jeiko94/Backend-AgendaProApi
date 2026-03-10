@@ -29,7 +29,7 @@ namespace Backend_AgendaProApi.Api.Controllers
             }
         }
 
-        [HttpPost("entrar")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UsuarioLoginDto dto)
         {
             try
