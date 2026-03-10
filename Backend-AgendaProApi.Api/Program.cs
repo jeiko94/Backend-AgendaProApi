@@ -3,6 +3,7 @@ using Backend_AgendaProApi.Application.Service;
 using Backend_AgendaProApi.Application.Services;
 using Backend_AgendaProApi.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,16 +22,31 @@ builder.Services.AddScoped<ICitaService, CitaService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "LorianAnalytics API",
+        Version = "v1",
+        Description = "API para LorianAnalytics con autenticación JWT"
+    });
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+var swaggerEnabled = builder.Configuration.GetValue<bool>("Swagger:Enabled");
+
+if (swaggerEnabled || app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "LorianAnalytics API v1");
+        c.DisplayRequestDuration();
+    });
 }
 
 app.UseHttpsRedirection();
