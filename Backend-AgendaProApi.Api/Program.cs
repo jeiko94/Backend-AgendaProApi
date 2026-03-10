@@ -52,10 +52,10 @@ if (app.Environment.IsDevelopment())
 }
 
 
+app.UseHttpsRedirection();
+
 // Activar CORS
 app.UseCors("AllowReact");
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
