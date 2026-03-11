@@ -21,22 +21,18 @@ builder.Services.AddControllers();
 
 
 // CORS (para React)
-
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReact",
-        policy =>
-        {
-            policy.WithOrigins(
-                "http://localhost:5173",
-                "http://localhost:3000",
-                "http://localhost:8080"
-            )
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-        });
+    options.AddPolicy("FrontendPolicy", policy =>
+    {
+        policy.WithOrigins("https://green-glacier-0eb0fc40f.4.azurestaticapps.net")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
+
+
+
 
 
 // Developomar
