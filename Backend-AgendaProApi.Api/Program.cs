@@ -17,6 +17,7 @@ builder.Services.AddScoped<IBloqueHorarioService, BloqueHorarioService>();
 builder.Services.AddScoped<ICitaService, CitaService>();
 
 builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,10 +26,11 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
-app.MapGet("/", () => Results.Redirect("/swagger"));
+app.UseAuthorization();
 
 app.MapControllers();
 
