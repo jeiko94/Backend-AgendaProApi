@@ -17,6 +17,29 @@ builder.Services.AddScoped<IBloqueHorarioService, BloqueHorarioService>();
 builder.Services.AddScoped<ICitaService, CitaService>();
 
 builder.Services.AddControllers();
+<<<<<<< HEAD
+=======
+
+// CORS (para React)
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReact",
+        policy =>
+        {
+            policy.WithOrigins(
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "http://localhost:8080"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+});
+
+
+>>>>>>> Developomar
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -28,7 +51,13 @@ app.UseSwaggerUI();
 
 
 app.UseHttpsRedirection();
+<<<<<<< HEAD
 app.UseAuthorization();
+=======
+
+// Activar CORS...
+app.UseCors("AllowReact");
+>>>>>>> Developomar
 
 app.UseAuthorization();
 
