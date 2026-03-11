@@ -22,6 +22,8 @@ builder.Services.AddScoped<ICitaService, CitaService>();
 builder.Services.AddControllers();
 
 // CORS (para React)
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact",
